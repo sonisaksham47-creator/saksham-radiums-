@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Record Sale</h2>
+<form method="POST" class="row g-3 mb-4">
+    <div class="col-auto">
+        <select name="product_id" class="form-control" required>
+            <option value="">Select Product</option>
+            {% for inv in inventories %}
+                {% if inv.product %}
+                <option value="{{ inv.product_id }}">
+                    {{ inv.product.name }} (Stock: {{ inv.quantity }}) - ₹{{ "%.2f"|format(inv.product.price) }}
+                </option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+    {% if shops %}
+    <div class="col-auto">
+        <select name="shop_id" class="form-control" required>
+            <option value="">Select Shop</option>
+            {% for s in shops %}
+            <option value="{{ s.id }}">{{ s.shop_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+    <div class="col-auto">
+        <input type="number" name="quantity" placeholder="Quantity" class="form-control" required min="1">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-success">Record Sale</button>
+    </div>
+</form>
+
+<h4>Sales History</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Shop</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in sales %}
+        <tr>
+            <td>{{ sale.date.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>{{ sale.product.name if sale.product else 'Deleted' }}</td>
+            <td>{% if sale.product %}₹{{ "%.2f"|format(sale.product.price) }}{% else %}N/A{% endif %}</td>
+            <td>{{ sale.shop.shop_name if sale.shop else 'N/A' }}</td>
+            <td>{{ sale.quantity }}</td>
+            <td>{% if sale.product %}₹{{ "%.2f"|format(sale.product.price * sale.quantity) }}{% else %}N/A{% endif %}</td>
+            <td>
+                <form action="{{ url_for('delete_sale', id=sale.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Delete this sale? Inventory will be restored.');">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

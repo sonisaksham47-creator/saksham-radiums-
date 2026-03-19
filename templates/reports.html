@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Sales Reports</h2>
+
+<!-- Single floating PDF button (bottom right) -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <a href="{{ url_for('reports_pdf') }}" class="btn btn-primary btn-lg" target="_blank">
+        <i class="bi bi-file-pdf"></i> Export PDF
+    </a>
+</div>
+
+{% if shop_sales %}
+<h4>Sales per Shop</h4>
+<table class="table table-bordered">
+    <thead><tr><th>Shop</th><th>Units</th><th>Revenue</th></tr></thead>
+    <tbody>
+        {% for shop, units, revenue in shop_sales %}
+        <tr><td>{{ shop }}</td><td>{{ units }}</td><td>₹{{ "%.2f"|format(revenue) }}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<h4>Daily Summary</h4>
+<table class="table table-bordered">
+    <thead><tr><th>Date</th><th>Units</th><th>Revenue</th></tr></thead>
+    <tbody>
+        {% for day, units, revenue in daily %}
+        <tr><td>{{ day }}</td><td>{{ units }}</td><td>₹{{ "%.2f"|format(revenue) }}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h4>Monthly Summary</h4>
+<table class="table table-bordered">
+    <thead><tr><th>Month</th><th>Units</th><th>Revenue</th></tr></thead>
+    <tbody>
+        {% for month, units, revenue in monthly %}
+        <tr><td>{{ month }}</td><td>{{ units }}</td><td>₹{{ "%.2f"|format(revenue) }}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

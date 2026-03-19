@@ -1,0 +1,171 @@
+/* ===== SAKSHAM THEME v2 (Refined UI) ===== */
+
+:root{
+    --primary-red:#8b0202;
+    --dark-red:#500000;
+    --accent-yellow:#ffd400;
+    --yellow-hover:#e6be00;
+    --white:#ffffff;
+    --light-gray:#f6f7f9;
+    --text-dark:#2c3e50;
+    --border-black:#160202;
+}
+
+/* 1. Body */
+body{
+    background-color: var(--text-dark);
+    font-family: "Inter", "Segoe UI", sans-serif;
+    margin:0;
+    color:var( --light-gray);
+}
+
+/* 2. Navbar */
+.navbar{
+    background-color: var(--primary-red) !important;
+    padding:12px 20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.navbar-brand{
+    font-weight:700;
+    font-size:1.4rem;
+    letter-spacing:0.5px;
+    color:var(--white) !important;
+}
+
+.navbar a{
+    color:var(--white) !important;
+    font-weight:500;
+}
+
+/* 3. Cards */
+.card{
+    border-radius:12px;
+    border:none;
+    background:var(--white);
+    box-shadow:0 6px 16px rgba(0,0,0,.06);
+    transition:all .25s ease;
+    padding:10px;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+/* 4. Buttons (More Premium) */
+.btn{
+    border-radius:8px;
+    padding:8px 16px;
+    font-weight:600;
+    transition:all .2s ease;
+}
+
+/* Yellow = Primary Action */
+.btn-primary{
+    background-color:var(--accent-yellow);
+    border:none;
+    color:#000;
+}
+
+.btn-primary:hover{
+    background-color:var(--yellow-hover);
+    transform:translateY(-1px);
+}
+
+/* Red = Secondary */
+.btn-secondary{
+    background-color:var(--primary-red);
+    border:none;
+    color:white;
+}
+
+.btn-secondary:hover{
+    background-color:var(--dark-red);
+    transform:translateY(-1px);
+}
+
+/* Subtle Outline Button */
+.btn-outline{
+    border:1px solid var(--border-black);
+    color:var(--border-black);
+    background:transparent;
+}
+
+.btn-outline:hover{
+    background:var(--primary-red);
+    color:white;
+}
+
+/* 5. Tables */
+.table{
+    background-color:var(--white);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 4px 10px rgba(0,0,0,.05);
+}
+
+.table thead{
+    background-color:#fafafa;
+    color:#444;
+    font-weight:600;
+    border-bottom:2px solid #eee;
+}
+
+.table tbody tr{
+    transition:0.2s;
+}
+
+.table tbody tr:hover{
+    background-color:#fff5f5;
+}
+
+/* 6. Form Inputs */
+input, select, textarea{
+    border-radius:8px !important;
+    border:1px solid #ddd !important;
+    padding:8px 12px;
+}
+
+input:focus, select:focus, textarea:focus{
+    border-color:var(--primary-red) !important;
+    box-shadow:0 0 0 2px rgba(212,0,0,.15);
+    outline:none;
+}
+
+/* 7. Section Titles */
+h2, h3, h4{
+    font-weight:600;
+    margin-bottom:12px;
+}
+
+.section-title{
+    border-left:4px solid var(--primary-red);
+    padding-left:10px;
+    font-weight:600;
+}
+
+/* 8. Footer */
+.footer{
+    background-color:var(--primary-red);
+    color:white;
+    text-align:center;
+    padding:12px;
+    margin-top:40px;
+    font-size:0.9rem;
+}
+
+/* 9. Links */
+a{
+    text-decoration:none;
+    transition:0.2s;
+}
+
+a:hover{
+    color:var(--accent-yellow);
+}
+
+/* 10. Small UI Polish */
+.container, .card, .table{
+    margin-top:15px;
+}

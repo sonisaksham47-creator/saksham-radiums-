@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Inventory Management</h2>
+
+<!-- Search Form -->
+<form method="GET" action="{{ url_for('inventory') }}" class="row g-3 mb-4">
+    <div class="col-auto">
+        <input type="text" name="search" placeholder="Search products..." class="form-control" value="{{ search }}">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Search</button>
+        {% if search %}
+        <a href="{{ url_for('inventory') }}" class="btn btn-secondary">Clear</a>
+        {% endif %}
+    </div>
+</form>
+
+<h4>Add Stock</h4>
+<form method="POST" action="{{ url_for('add_inventory') }}" class="row g-3 mb-4">
+    <div class="col-auto">
+        <select name="product_id" class="form-control" required>
+            <option value="">Select Product</option>
+            {% for p in products %}
+            <option value="{{ p.id }}">{{ p.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% if shops %}
+    <div class="col-auto">
+        <select name="shop_id" class="form-control" required>
+            <option value="">Select Shop</option>
+            {% for s in shops %}
+            <option value="{{ s.id }}">{{ s.shop_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+    <div class="col-auto">
+        <input type="number" name="quantity" placeholder="Quantity" class="form-control" required min="1">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Add Stock</button>
+    </div>
+</form>
+
+<h4>Current Inventory</h4>
+<table class="table">
+    <thead>
+        <tr><th>Product</th><th>Price</th><th>Shop</th><th>Quantity</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        {% for inv in inventories %}
+        <tr>
+            <td>{{ inv.product.name }}</td>
+            <td>₹{{ "%.2f"|format(inv.product.price) }}</td>
+            <td>{{ inv.shop.shop_name }}</td>
+            <td>{{ inv.quantity }}</td>
+            <td>
+                <form action="{{ url_for('update_inventory') }}" method="POST" style="display:inline;">
+                    <input type="hidden" name="inventory_id" value="{{ inv.id }}">
+                    <input type="number" name="quantity" value="{{ inv.quantity }}" min="0" required>
+                    <button type="submit" class="btn btn-sm btn-warning">Update</button>
+                </form>
+                <form action="{{ url_for('delete_inventory', id=inv.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Delete this inventory item?');">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

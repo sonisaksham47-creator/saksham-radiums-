@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ current_user.shop.shop_name }} Dashboard</h2>
+
+<h3>Current Inventory</h3>
+<table class="table table-striped">
+    <thead>
+        <tr><th>Product</th><th>Price</th><th>Quantity</th></tr>
+    </thead>
+    <tbody>
+        {% for inv in inventories %}
+        <tr>
+            <td>{{ inv.product.name }}</td>
+            <td>₹{{ "%.2f"|format(inv.product.price) }}</td>
+            <td>{{ inv.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Today's Sales</h3>
+<p>Total units sold today: {{ total_daily }}</p>
+<table class="table table-striped">
+    <thead>
+        <tr><th>Product</th><th>Price</th><th>Quantity</th><th>Time</th></tr>
+    </thead>
+    <tbody>
+        {% for sale in daily_sales %}
+        <tr>
+            <td>{{ sale.product.name }}</td>
+            <td>₹{{ "%.2f"|format(sale.product.price) }}</td>
+            <td>{{ sale.quantity }}</td>
+            <td>{{ sale.date.strftime('%H:%M') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
